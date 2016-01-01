@@ -14,5 +14,7 @@ angular
     'ngCookies',
     'ngResource',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'appModules',
+    'ui.router'
   ]);
