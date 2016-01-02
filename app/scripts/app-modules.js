@@ -1,15 +1,20 @@
 'use strict';
 
 angular
-  .module('appModules', [])
-  .config(function($stateProvider) {
+  .module('appModules', [
+      'coursesModule'
+    ])
+  .config(function($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/courses');
+
     $stateProvider
-      .state('home', {
-        url: "/home",
-        templateUrl: "../views/home/home.html"
-        // views: {
-        //   "viewA": { template: "index.viewA" },
-        //   "viewB": { template: "index.viewB" }
-        // }
+      .state('courses', {
+        url: '/courses',
+        templateUrl: '../views/courses/courses.html',
+        controller: 'coursesCtrl'
       })
+      .state('students', {
+        url: '/students',
+        templateUrl: '../views/students/students.html'
+      });
   });
