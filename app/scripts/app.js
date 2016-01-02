@@ -2,19 +2,19 @@
 
 /**
  * @ngdoc overview
- * @name sampleYeomanAppApp
+ * @name sampleYeomanApp
  * @description
  * # sampleYeomanAppApp
  *
  * Main module of the application.
  */
 angular
-  .module('sampleYeomanAppApp', [
+  .module('sampleYeomanApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
     'ngSanitize',
     'ngTouch',
-    'appModules',
-    'ui.router'
+    'ui.router',
+    'appModules'
   ]);
