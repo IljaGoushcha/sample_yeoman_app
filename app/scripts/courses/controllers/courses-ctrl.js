@@ -6,7 +6,12 @@
 
 			$scope.onLoad = function() {
 				console.log("inside onLoad()");
-				coursesDataService.fetchAllCoursesB();
+				coursesDataService.fetchAllCourses().then(function(response) {
+					console.log(response);
+					$scope.allCourses = response;
+				}, function(error) {
+
+				});
 			};
 
 			$scope.onLoad();
