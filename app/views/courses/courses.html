@@ -1,4 +1,40 @@
-<h1>Courses</h1>
-<ul ng-repeat="course in allCourses">
-	<li>{{course.name}}</li>
-</ul>
+<div class="courses-outer-div">
+
+  <div class="container">
+    <h1>Courses</h1>
+  </div>
+
+  <div class="container table-container">
+    <table class="table-striped">
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Number</th> 
+        <th>Section</th>
+        <th>Action</th>
+      </tr>
+      <tr ng-repeat="course in allCourses">
+        <td></td>
+        <td>{{course.name}}</td>
+        <td>{{course.number}}</td> 
+        <td>{{course.section | uppercase}}</td>
+        <td></td>
+      </tr>
+      <tr ng-show="showNewCourseRow">
+        <td></td>
+        <td><input type="text" placeholder="course name" ng-init="" ng-model="newCourseObject.courseName"></td>
+        <td><input type="text" placeholder="course number" ng-init="" ng-model="newCourseObject.courseNumber"></td>
+        <td><input type="text" placeholder="section" ng-init="" ng-model="newCourseObject.sectionNumber"></td>
+        <td></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div class="container buttons-container">
+    <button type="button" class="btn btn-primary btn-sm" ng-click="addNewCourseAction()">Add Course</button>
+  </div>
+
+</div>
+

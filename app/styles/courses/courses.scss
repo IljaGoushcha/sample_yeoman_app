@@ -1,0 +1,41 @@
+.courses-outer-div {
+	.table-container {
+		table {
+			width: 100%;
+			tr {
+				td:nth-of-type(1) {
+					width: 30px;
+				}
+				td:nth-of-type(3) {
+					width: 100px;
+				}
+				td:nth-of-type(4) {
+					width: 100px;
+				}
+				td:nth-of-type(5) {
+					width: 100px;
+				}
+			}
+			
+			tr:nth-last-of-type(1) {
+				height: 26px;
+				td {
+					padding: 0 10px 0 10px 0;
+				}
+				input {
+					display: block;
+					border-radius: 4px;
+					border: 0;
+					width: calc(100% - 10px);
+					height: 18px;
+					line-height: 18px;
+					padding-left: 3px;
+				}
+			}
+		}
+	}
+
+	.buttons-container {
+		margin-top: 10px;
+	}
+}
