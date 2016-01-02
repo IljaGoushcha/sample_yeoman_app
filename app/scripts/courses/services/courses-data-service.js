@@ -1,14 +1,31 @@
 'use strict';
 
 angular.module('coursesModule')
-	.factory('courses-data-service', ['Restangular', function(Restangular) {
+	.factory('coursesDataService', ['Restangular', '$http', function(Restangular, $http) {
 
 		var fetchAllCourses = function() {
-			// return Restangular.all('courses');
-			return "response from fetchAllCourses";
+			Restangular.setBaseUrl('localhost:3000');
+
+			Restangular.one('courses').get().then(function(response) {
+				console.log(response);
+			}, function() {
+
+			});
+			return null;
 		};
 
+
+		var fetchAllCoursesB = function() {
+			$http.get('localhost:3000/courses').success(function(response) {
+				console.log(response);
+			});
+			return null;
+		};
+
+
+
 		return {
-			fetchAllCourses: fetchAllCourses
+			fetchAllCourses: fetchAllCourses,
+			fetchAllCoursesB: fetchAllCoursesB
 		};
 	}]);

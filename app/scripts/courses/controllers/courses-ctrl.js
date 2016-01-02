@@ -6,7 +6,7 @@
 
 			$scope.onLoad = function() {
 				console.log("inside onLoad()");
-				// console.log(coursesDataService.fetchAllCourses());
+				coursesDataService.fetchAllCoursesB();
 			};
 
 			$scope.onLoad();
