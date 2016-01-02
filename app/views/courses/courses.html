@@ -18,22 +18,28 @@
         <td>{{course.name}}</td>
         <td>{{course.number}}</td> 
         <td>{{course.section | uppercase}}</td>
-        <td></td>
+        <td><i class="fa fa-pencil"></i>&nbsp;<i class="fa fa-trash"></i></td>
       </tr>
       <tr ng-show="showNewCourseRow">
         <td></td>
         <td><input type="text" placeholder="course name" ng-init="" ng-model="newCourseObject.courseName"></td>
         <td><input type="text" placeholder="course number" ng-init="" ng-model="newCourseObject.courseNumber"></td>
         <td><input type="text" placeholder="section" ng-init="" ng-model="newCourseObject.sectionNumber"></td>
-        <td></td>
+        <td><i class="fa fa-floppy-o" ng-click="saveNewCourseAction()"></i>&nbsp;&nbsp;&nbsp;&nbsp;</td>
       </tr>
-      
-      
+      <tr ng-show="!showNewCourseRow">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-circle" ng-click="addNewCourseAction()"></i></td>
+      </tr>
     </table>
   </div>
   
   <div class="container buttons-container">
-    <button type="button" class="btn btn-primary btn-sm" ng-click="addNewCourseAction()">Add Course</button>
+    <!-- <i class="fa fa-plus-circle"></i> -->
+    <!-- <button type="button" class="btn btn-primary btn-sm" ng-click="addNewCourseAction()">Add Course</button> -->
   </div>
 
 </div>

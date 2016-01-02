@@ -19,6 +19,10 @@
 				console.log($scope.newCourseObject);
 			};
 
+			$scope.saveNewCourseAction = function() {
+				
+			};
+
 			$scope.onLoad = function() {
 				console.log("inside onLoad()");
 				coursesDataService.fetchAllCourses().then(function(response) {
