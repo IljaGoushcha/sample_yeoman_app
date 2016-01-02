@@ -22,9 +22,9 @@
       </tr>
       <tr ng-show="showNewCourseRow">
         <td></td>
-        <td><input type="text" placeholder="course name" ng-init="" ng-model="newCourseObject.courseName"></td>
-        <td><input type="text" placeholder="course number" ng-init="" ng-model="newCourseObject.courseNumber"></td>
-        <td><input type="text" placeholder="section" ng-init="" ng-model="newCourseObject.sectionNumber"></td>
+        <td><input type="text" placeholder="course name" ng-init="" ng-model="newCourseObject.course.courseName"></td>
+        <td><input type="text" placeholder="course number" ng-init="" ng-model="newCourseObject.course.courseNumber"></td>
+        <td><input type="text" placeholder="section" ng-init="" ng-model="newCourseObject.course.sectionNumber"></td>
         <td><i class="fa fa-floppy-o" ng-click="saveNewCourseAction()"></i>&nbsp;&nbsp;&nbsp;&nbsp;</td>
       </tr>
       <tr ng-show="!showNewCourseRow">

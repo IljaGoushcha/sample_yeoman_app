@@ -7,9 +7,11 @@
 			$scope.showNewCourseRow = false;
 			$scope.testCollapseVariable = true;
 			$scope.newCourseObject = {
-				"courseName": "",
-				"courseNumber": "",
-				"sectionNumber": ""
+				"course": {
+					"courseName": "",
+					"courseNumber": "",
+					"sectionNumber": ""
+				}
 			};
 
 			$scope.addNewCourseAction = function() {
@@ -20,7 +22,12 @@
 			};
 
 			$scope.saveNewCourseAction = function() {
-				
+				console.log("inside saveNewCourseAction()");
+				coursesDataService.saveNewCourse($scope.newCourseObject).then(function(response) {
+					console.log(response);
+				}, function(error) {
+
+				});
 			};
 
 			$scope.onLoad = function() {
