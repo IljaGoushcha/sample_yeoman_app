@@ -18,16 +18,16 @@
         <td>{{course.name}}</td>
         <td>{{course.number}}</td> 
         <td>{{course.section | uppercase}}</td>
-        <td><i class="fa fa-pencil"></i>&nbsp;<i class="fa fa-trash"></i></td>
+        <td><i class="fa fa-pencil"></i>&nbsp;<i class="fa fa-trash" ng-click="deleteCourseAction(course)"></i></td>
       </tr>
-      <tr ng-show="showNewCourseRow">
+      <tr>
         <td></td>
-        <td><input type="text" placeholder="course name" ng-init="" ng-model="newCourseObject.course.courseName"></td>
-        <td><input type="text" placeholder="course number" ng-init="" ng-model="newCourseObject.course.courseNumber"></td>
-        <td><input type="text" placeholder="section" ng-init="" ng-model="newCourseObject.course.sectionNumber"></td>
-        <td><i class="fa fa-floppy-o" ng-click="saveNewCourseAction()"></i>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td><input type="text" placeholder="course name" ng-init="" ng-model="course.name"></td>
+        <td><input type="text" placeholder="course number" ng-init="" ng-model="course.number"></td>
+        <td><input type="text" placeholder="section" ng-init="" ng-model="course.section"></td>
+        <td><i class="fa fa-floppy-o" ng-click="saveNewCourseAction(course)"></i>&nbsp;&nbsp;&nbsp;&nbsp;</td>
       </tr>
-      <tr ng-show="!showNewCourseRow">
+      <tr>
         <td></td>
         <td></td>
         <td></td>

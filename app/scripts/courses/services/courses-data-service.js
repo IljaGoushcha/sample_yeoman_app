@@ -9,12 +9,22 @@ angular.module('coursesModule')
 		};
 
 		var saveNewCourse = function(newCourse) {
+			var myPayload = {
+				"course": newCourse
+			};
+			console.log(myPayload);
 			Restangular.setBaseUrl('http://localhost:3000');
-			return Restangular.one('courses').post(newCourse);
+			return Restangular.one('courses').post('', myPayload);
+		};
+
+		var deleteCourse = function(myCourse) {
+			Restangular.setBaseUrl('http://localhost:3000');
+			return Restangular.one('courses', myCourse.id).remove();
 		};
 
 		return {
 			fetchAllCourses: fetchAllCourses,
-			saveNewCourse: saveNewCourse
+			saveNewCourse: saveNewCourse,
+			deleteCourse: deleteCourse
 		};
 	}]);

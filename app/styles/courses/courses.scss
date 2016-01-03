@@ -23,6 +23,12 @@
 				td:nth-of-type(5) {
 					width: 100px;
 					text-align: center;
+					.fa-pencil:hover {
+						cursor: pointer;
+					}
+					.fa-trash:hover {
+						cursor: pointer;
+					}
 				}
 			}
 			

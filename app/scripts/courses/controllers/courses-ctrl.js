@@ -6,24 +6,25 @@
 
 			$scope.showNewCourseRow = false;
 			$scope.testCollapseVariable = true;
-			$scope.newCourseObject = {
-				"course": {
-					"courseName": "",
-					"courseNumber": "",
-					"sectionNumber": ""
-				}
-			};
-
+			
 			$scope.addNewCourseAction = function() {
 				console.log("inside addNewCourseAction()");
 				$scope.showNewCourseRow = true;
 				$scope.testCollapseVariable = false;
-				console.log($scope.newCourseObject);
 			};
 
-			$scope.saveNewCourseAction = function() {
+			$scope.saveNewCourseAction = function(newCourse) {
 				console.log("inside saveNewCourseAction()");
-				coursesDataService.saveNewCourse($scope.newCourseObject).then(function(response) {
+				coursesDataService.saveNewCourse(newCourse).then(function(response) {
+					console.log(response);
+				}, function(error) {
+
+				});
+			};
+
+			$scope.deleteCourseAction = function(myCourse) {
+				console.log("inside deleteCourseAction()");
+				coursesDataService.deleteCourse(myCourse).then(function(response) {
 					console.log(response);
 				}, function(error) {
 
