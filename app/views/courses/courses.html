@@ -10,10 +10,10 @@
         <th></th>
         <th><span ng-click="rowName='name'; reverse=!reverse">Name</span></th>
         <th><span ng-click="rowName='number'; reverse=!reverse">Number</span></th> 
-        <th><span ng-click="rowName='number'; reverse=!reverse">Section</span></th>
+        <th><span ng-click="rowName='section'; reverse=!reverse">Section</span></th>
         <th>Action</th>
       </tr>
-      <tr ng-repeat="course in allCourses | orderBy:rowName:reverse">
+      <tr ng-class="{'highlighted': course.isSelected}" ng-repeat="course in allCourses | orderBy:rowName:reverse" ng-click="selectRow(course)">
         <td></td>
         <td>
           <span ng-show="!course.isSelected">{{course.name}}</span>
@@ -31,7 +31,8 @@
           <span ng-show="!course.isSelected">
             <i class="fa fa-pencil" ng-class="{'disabled': unsavedCourseExists}" ng-click="editCourseAction(course)"></i>&nbsp;<i class="fa fa-trash" ng-class="{'disabled': unsavedCourseExists}" ng-click="deleteCourseAction(course)"></i>
           </span>
-          <span ng-show="course.isSelected"><i class="fa fa-floppy-o" ng-click="saveCourseAction(course)"></i>&nbsp;<i class="fa fa-trash" ng-click="stopAddingNewCourseAction()"></i>
+          <span ng-show="course.isSelected">
+            <i class="fa fa-floppy-o" ng-click="saveCourseAction(course)"></i>&nbsp;<i class="fa fa-trash" ng-click="stopAddingNewCourseAction()"></i>
           </span>
         </td>
       </tr>

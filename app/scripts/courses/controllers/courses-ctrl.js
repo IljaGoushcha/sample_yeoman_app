@@ -9,6 +9,8 @@
 
 			$scope.addNewCourseAction = function() {
 				console.log("inside addNewCourseAction()");
+				$scope.rowName = null;
+				$scope.reverse = false;
 				$scope.allCourses.push({
 					"name": null,
 					"number": null,
@@ -66,6 +68,14 @@
 
 			$scope.showJsonAction = function() {
 				console.log($scope.allCourses);
+			};
+
+			$scope.selectRow = function(myCourse) {
+				$scope.allCourses.map(function(course) {
+					course.isSelected = false;
+				});
+				myCourse.isSelected = true;
+				$scope.unsavedCourseExists = true;
 			};
 
 			$scope.onLoad = function() {
