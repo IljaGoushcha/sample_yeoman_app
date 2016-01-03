@@ -89,10 +89,14 @@
 			$scope.selectRow = function(myCourse, event) {
 				event.stopPropagation();
 
-				$scope.deselectAllRows();
+				if (myCourse.isSelected == true) {
+					console.log("row already selected");
+				} else {
+					$scope.deselectAllRows();
 
-				myCourse.isSelected = true;
-				$scope.unsavedCourseExists = true;
+					myCourse.isSelected = true;
+					$scope.unsavedCourseExists = true;
+				}
 			};
 
 			$scope.deselectAllRows = function() {
@@ -123,11 +127,10 @@
 			$scope.onLoad = function() {
 				console.log("inside onLoad()");
 				coursesDataService.fetchAllCourses().then(function(response) {
-					console.log(response);
 					$scope.allCourses = response;
 					$scope.unsavedCourseExists = false;
 				}, function(error) {
-
+					console.log("error loading courses");
 				});
 			};
 
