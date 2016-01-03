@@ -2,13 +2,14 @@
 	'use strict'
 
 	angular.module('coursesModule')
-		.controller('coursesCtrl', ['$scope', 'coursesDataService', function($scope, coursesDataService) {
+		.controller('coursesCtrl', ['$scope', 'coursesDataService', '$document', function($scope, coursesDataService, $document) {
 			
 			$scope.rowName = 'name';
 			$scope.reverse = false;
 
-			$scope.addNewCourseAction = function() {
+			$scope.addNewCourseAction = function(event) {
 				console.log("inside addNewCourseAction()");
+				event.stopPropagation();
 				$scope.rowName = null;
 				$scope.reverse = false;
 				$scope.allCourses.push({
@@ -56,14 +57,19 @@
 				$scope.unsavedCourseExists = true;
 			};
 
-			$scope.deleteCourseAction = function(myCourse) {
+			$scope.deleteCourseAction = function(myCourse, event) {
 				console.log("inside deleteCourseAction()");
-				coursesDataService.deleteCourse(myCourse).then(function(response) {
-					console.log(response);
-					$scope.onLoad();
-				}, function(error) {
+				event.stopPropagation();
+				if (myCourse.hasOwnProperty('id')) {
+					coursesDataService.deleteCourse(myCourse).then(function(response) {
+						console.log(response);
+						$scope.onLoad();
+					}, function(error) {
 
-				});
+					});
+				} else {
+					$scope.stopAddingNewCourseAction();
+				}	
 			};
 
 			$scope.showJsonAction = function() {
@@ -98,6 +104,28 @@
 				}, function(error) {
 
 				});
+			};
+
+			$(document).bind('click', function(){
+				console.log("inside document.on click");
+        		$scope.deselectAllRows();
+    		});
+
+			$scope.deselectAllRows = function() {
+				console.log("inside delecetAllRows()");
+				_.remove($scope.allCourses, function(course) {
+    				return (course.name == null || course.number == null || course.section == null);
+				});
+
+				$scope.allCourses.map(function(course) {
+					course.isSelected = false;
+					if (!course.hasOwnProperty('id')) {
+						$scope.saveCourseAction(course);
+					}
+				});
+
+				$scope.unsavedCourseExists = false;
+				$scope.$apply();
 			};
 
 			$scope.onLoad();
