@@ -17,15 +17,15 @@
         <td></td>
         <td ng-style="course.isSelected && {'text-align': 'center'}">
           <span ng-show="!course.isSelected">{{course.name}}</span>
-          <input ng-show="course.isSelected" type="text" placeholder="add name" ng-model="course.name">
+          <input ng-show="course.isSelected" type="text" placeholder="add name" ng-model="course.name" ng-click="$event.stopPropagation()">
         </td>
         <td>
           <span ng-show="!course.isSelected">{{course.number}}</span>
-          <input ng-show="course.isSelected" type="text" placeholder="add number" ng-init="" ng-model="course.number">
+          <input ng-show="course.isSelected" type="text" placeholder="add number" ng-init="" ng-model="course.number" ng-click="$event.stopPropagation()">
         </td> 
         <td>
           <span ng-show="!course.isSelected">{{course.section | uppercase}}</span>
-          <input ng-show="course.isSelected" type="text" placeholder="add section" ng-init="" ng-model="course.section">
+          <input ng-show="course.isSelected" type="text" placeholder="add section" ng-init="" ng-model="course.section" ng-click="$event.stopPropagation()">
         </td>
         <td>
           <span ng-show="!course.isSelected">

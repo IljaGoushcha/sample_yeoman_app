@@ -76,6 +76,10 @@
 					course.isSelected = false;
 				});
 
+				_.remove($scope.allCourses, function(course) {
+    				return (course.name == null || course.number == null || course.section == null);
+				});
+
 				myCourse.isSelected = true;
 				$scope.unsavedCourseExists = true;
 				
