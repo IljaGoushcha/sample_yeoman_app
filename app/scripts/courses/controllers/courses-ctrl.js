@@ -21,14 +21,12 @@
 				$scope.unsavedCourseExists = true;
 			};
 
-			$scope.stopAddingNewCourseAction = function() {
-				console.log("inside astoAddingNewCourseAction()");
-				$scope.allCourses.pop();
-				$scope.unsavedCourseExists = false;
-			};
-
-			$scope.saveCourseAction = function(myCourse) {
+			$scope.saveCourseAction = function(myCourse, event) {
 				console.log("inside saveNewCourseAction()");
+				if (event) {
+					event.stopPropagation();
+				}
+				
 				if (myCourse.hasOwnProperty('id')) {
 					$scope.updateCourseAction(myCourse);
 				} else {
@@ -41,6 +39,13 @@
 				}
 			};
 
+			$scope.editCourseAction = function(myCourse, event) {
+				console.log("inside editCourseAction()");
+				event.stopPropagation();
+				myCourse.isSelected = true;
+				$scope.unsavedCourseExists = true;
+			};
+
 			$scope.updateCourseAction = function(myCourse) {
 				console.log("inside updateCourseAction()");
 				coursesDataService.updateCourse(myCourse).then(function(response) {
@@ -49,12 +54,6 @@
 					}, function(error) {
 
 					});
-			};
-
-			$scope.editCourseAction = function(myCourse) {
-				console.log("inside editCourseAction()");
-				myCourse.isSelected = true;
-				$scope.unsavedCourseExists = true;
 			};
 
 			$scope.deleteCourseAction = function(myCourse, event) {
@@ -72,28 +71,45 @@
 				}	
 			};
 
-			$scope.showJsonAction = function() {
-				console.log($scope.allCourses);
+			$scope.stopAddingNewCourseAction = function() {
+				console.log("inside astoAddingNewCourseAction()");
+				$scope.allCourses.pop();
+				$scope.unsavedCourseExists = false;
 			};
 
-			$scope.selectRow = function(myCourse) {
-				
+			$scope.selectRow = function(myCourse, event) {
+				event.stopPropagation();
+
+				$scope.deselectAllRows();
+
+				myCourse.isSelected = true;
+				$scope.unsavedCourseExists = true;
+			};
+
+			$scope.deselectAllRows = function() {
+				console.log("inside delecetAllRows()");
 				_.remove($scope.allCourses, function(course) {
     				return (course.name == null || course.number == null || course.section == null);
 				});
 
 				$scope.allCourses.map(function(course) {
-					course.isSelected = false;
-					if (!course.hasOwnProperty('id')) {
+					if (course.isSelected && course.hasOwnProperty('id')) {
+						$scope.updateCourseAction(course);
+					} else if (course.isSelected && !course.hasOwnProperty('id')) {
 						$scope.saveCourseAction(course);
 					}
+
+					
+					course.isSelected = false;
 				});
 
-
-				myCourse.isSelected = true;
-				$scope.unsavedCourseExists = true;
-				
+				$scope.unsavedCourseExists = false;
 			};
+
+			$(document).bind('click', function(){
+				console.log("inside document.on click");
+        		$scope.deselectAllRows();
+    		});
 
 			$scope.onLoad = function() {
 				console.log("inside onLoad()");
@@ -104,28 +120,6 @@
 				}, function(error) {
 
 				});
-			};
-
-			$(document).bind('click', function(){
-				console.log("inside document.on click");
-        		$scope.deselectAllRows();
-    		});
-
-			$scope.deselectAllRows = function() {
-				console.log("inside delecetAllRows()");
-				_.remove($scope.allCourses, function(course) {
-    				return (course.name == null || course.number == null || course.section == null);
-				});
-
-				$scope.allCourses.map(function(course) {
-					course.isSelected = false;
-					if (!course.hasOwnProperty('id')) {
-						$scope.saveCourseAction(course);
-					}
-				});
-
-				$scope.unsavedCourseExists = false;
-				$scope.$apply();
 			};
 
 			$scope.onLoad();
