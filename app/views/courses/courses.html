@@ -17,28 +17,39 @@
         <td></td>
         <td>
           <span ng-show="!course.isSelected">{{course.name}}</span>
-          <input ng-show="course.isSelected" type="text" placeholder="course name" ng-model="course.name">
+          <input ng-show="course.isSelected" type="text" placeholder="add name" ng-model="course.name">
         </td>
         <td>
           <span ng-show="!course.isSelected">{{course.number}}</span>
-          <input ng-show="course.isSelected" type="text" placeholder="course number" ng-init="" ng-model="course.number">
+          <input ng-show="course.isSelected" type="text" placeholder="add number" ng-init="" ng-model="course.number">
         </td> 
         <td>
           <span ng-show="!course.isSelected">{{course.section | uppercase}}</span>
-          <input ng-show="course.isSelected" type="text" placeholder="section" ng-init="" ng-model="course.section">
+          <input ng-show="course.isSelected" type="text" placeholder="add section" ng-init="" ng-model="course.section">
         </td>
         <td>
-          <span ng-show="!course.isSelected"><i class="fa fa-pencil" ng-class="{'disabled': unsavedCourseExists}" ng-click="editCourseAction(course)"></i>&nbsp;<i class="fa fa-trash" ng-class="{'disabled': unsavedCourseExists}" ng-click="deleteCourseAction(course)"></i></span>
-          <span ng-show="course.isSelected"><i class="fa fa-floppy-o" ng-click="saveNewCourseAction(course)"></i>&nbsp;<i class="fa fa-trash" ng-click="stopAddingNewCourseAction()"></i></span>
+          <span ng-show="!course.isSelected">
+            <i class="fa fa-pencil" ng-class="{'disabled': unsavedCourseExists}" ng-click="editCourseAction(course)"></i>&nbsp;<i class="fa fa-trash" ng-class="{'disabled': unsavedCourseExists}" ng-click="deleteCourseAction(course)"></i>
+          </span>
+          <span ng-show="course.isSelected"><i class="fa fa-floppy-o" ng-click="saveCourseAction(course)"></i>&nbsp;<i class="fa fa-trash" ng-click="stopAddingNewCourseAction()"></i>
+          </span>
         </td>
       </tr>
     </table>
   </div>
   
   <div class="container buttons-container">
-    &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-plus-circle" ng-class="{'disabled': unsavedCourseExists}" ng-click="addNewCourseAction()"></i><br><br><br>
-    <button type="button" class="btn btn-primary btn-sm" ng-click="showJsonAction()">Show JSON</button>
+    <table>
+      <tr>
+        <td></td>
+        <td>
+          <span ng-class="{'disabled': unsavedCourseExists}" ng-click="addNewCourseAction()"><i class="fa fa-plus-circle"></i>&nbsp;Add</span>
+        </td>
+      </tr>
+    </table>
   </div>
-
+  
+  <br><br><br>
+  <button type="button" class="btn btn-primary btn-sm" ng-click="showJsonAction()">Show JSON</button>
 </div>
 

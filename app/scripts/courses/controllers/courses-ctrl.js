@@ -21,14 +21,28 @@
 				$scope.unsavedCourseExists = false;
 			};
 
-			$scope.saveNewCourseAction = function(newCourse) {
+			$scope.saveCourseAction = function(myCourse) {
 				console.log("inside saveNewCourseAction()");
-				coursesDataService.saveNewCourse(newCourse).then(function(response) {
-					console.log(response);
-					$scope.onLoad();
-				}, function(error) {
+				if (myCourse.hasOwnProperty('id')) {
+					$scope.updateCourseAction(myCourse);
+				} else {
+					coursesDataService.saveNewCourse(myCourse).then(function(response) {
+						console.log(response);
+						$scope.onLoad();
+					}, function(error) {
 
-				});
+					});
+				}
+			};
+
+			$scope.updateCourseAction = function(myCourse) {
+				console.log("inside updateCourseAction()");
+				coursesDataService.updateCourse(myCourse).then(function(response) {
+						console.log(response);
+						$scope.onLoad();
+					}, function(error) {
+
+					});
 			};
 
 			$scope.editCourseAction = function(myCourse) {

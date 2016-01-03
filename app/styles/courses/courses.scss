@@ -53,8 +53,21 @@
 
 	.buttons-container {
 		margin-top: 10px;
-		.fa-plus-circle:hover {
-			cursor: pointer;
+		table {
+			width: 100%;
+			tr {
+				td:nth-of-type(2) {
+					width: 100px;
+					text-align: center;
+					span:hover {
+						cursor: pointer;
+					}
+					span.disabled {
+						opacity: 0.4;
+						pointer-events: none;
+					}
+				}
+			}
 		}
 	}
 
