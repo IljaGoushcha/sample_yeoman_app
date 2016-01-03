@@ -72,13 +72,17 @@
 
 			$scope.selectRow = function(myCourse) {
 				
-				$scope.allCourses.map(function(course) {
-					course.isSelected = false;
-				});
-
 				_.remove($scope.allCourses, function(course) {
     				return (course.name == null || course.number == null || course.section == null);
 				});
+
+				$scope.allCourses.map(function(course) {
+					course.isSelected = false;
+					if (!course.hasOwnProperty('id')) {
+						$scope.saveCourseAction(course);
+					}
+				});
+
 
 				myCourse.isSelected = true;
 				$scope.unsavedCourseExists = true;
