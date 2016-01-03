@@ -4,6 +4,9 @@
 	angular.module('coursesModule')
 		.controller('coursesCtrl', ['$scope', 'coursesDataService', function($scope, coursesDataService) {
 			
+			$scope.rowName = 'name';
+			$scope.reverse = false;
+
 			$scope.addNewCourseAction = function() {
 				console.log("inside addNewCourseAction()");
 				$scope.allCourses.push({

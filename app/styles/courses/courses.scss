@@ -6,6 +6,9 @@
 				height: 26px;
 				th {
 					text-align: center;
+					span:hover {
+						cursor: pointer;
+					}
 				}
 				th:nth-of-type(2) {
 					text-align: left;
