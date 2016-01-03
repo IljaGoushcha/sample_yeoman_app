@@ -18,5 +18,6 @@ angular
     'ui.bootstrap',
     'ui.router',
     'restangular',
+    'cfp.hotkeys',
     'appModules'
   ]);

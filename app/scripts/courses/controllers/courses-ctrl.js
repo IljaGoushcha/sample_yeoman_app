@@ -2,10 +2,19 @@
 	'use strict'
 
 	angular.module('coursesModule')
-		.controller('coursesCtrl', ['$scope', 'coursesDataService', '$document', function($scope, coursesDataService, $document) {
+		.controller('coursesCtrl', ['$scope', 'coursesDataService', '$document', 'hotkeys', function($scope, coursesDataService, $document, hotkeys) {
 			
 			$scope.rowName = 'name';
 			$scope.reverse = false;
+
+			hotkeys.bindTo($scope)
+				.add({
+					combo: 'esc',
+					description: 'test',
+					callback: function() {
+						console.log("esc pressed");
+					}
+				})
 
 			$scope.addNewCourseAction = function(event) {
 				console.log("inside addNewCourseAction()");
