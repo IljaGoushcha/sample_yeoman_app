@@ -71,11 +71,14 @@
 			};
 
 			$scope.selectRow = function(myCourse) {
+				
 				$scope.allCourses.map(function(course) {
 					course.isSelected = false;
 				});
+
 				myCourse.isSelected = true;
 				$scope.unsavedCourseExists = true;
+				
 			};
 
 			$scope.onLoad = function() {
