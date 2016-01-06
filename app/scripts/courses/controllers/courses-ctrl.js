@@ -3,7 +3,7 @@
 
 	angular.module('coursesModule')
 		.controller('coursesCtrl', ['$scope', 'coursesDataService', '$document', 'hotkeys', function($scope, coursesDataService, $document, hotkeys) {
-			
+			// use ng-change
 			$scope.columnName = 'name';
 			$scope.reverse = false;
 
@@ -24,6 +24,8 @@
 					}
 				});
 			};
+
+
 
 			$scope.addNewCourseAction = function(event) {
 				console.log("inside addNewCourseAction()");
