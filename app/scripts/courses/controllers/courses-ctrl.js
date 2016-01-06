@@ -16,6 +16,15 @@
 					}
 				});
 
+			$scope.deselectAllRowsB = function(myCourse) {
+				$scope.allCourses.map(function(course) {
+					if (course.id == myCourse.id) {
+					} else {
+						course.isSelected = false;
+					}
+				});
+			};
+
 			$scope.addNewCourseAction = function(event) {
 				console.log("inside addNewCourseAction()");
 				event.stopPropagation();
@@ -99,7 +108,7 @@
 				}
 			};
 
-			$scope.deselectAllRows = function() {
+			$scope.deselectAllRows = function(course) {
 				console.log("inside deselectAllRows()");
 				_.remove($scope.allCourses, function(course) {
     				return (course.name == null || course.number == null || course.section == null);
