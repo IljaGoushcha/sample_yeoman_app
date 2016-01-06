@@ -4,7 +4,7 @@
 	angular.module('coursesModule')
 		.controller('coursesCtrl', ['$scope', 'coursesDataService', '$document', 'hotkeys', function($scope, coursesDataService, $document, hotkeys) {
 			
-			$scope.rowName = 'name';
+			$scope.columnName = 'name';
 			$scope.reverse = false;
 
 			hotkeys.bindTo($scope)
@@ -14,7 +14,7 @@
 					callback: function() {
 						console.log("esc pressed");
 					}
-				})
+				});
 
 			$scope.addNewCourseAction = function(event) {
 				console.log("inside addNewCourseAction()");
@@ -100,7 +100,7 @@
 			};
 
 			$scope.deselectAllRows = function() {
-				console.log("inside delecetAllRows()");
+				console.log("inside deselectAllRows()");
 				_.remove($scope.allCourses, function(course) {
     				return (course.name == null || course.number == null || course.section == null);
 				});
