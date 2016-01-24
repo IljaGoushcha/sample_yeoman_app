@@ -11,7 +11,8 @@ angular
       .state('courses', {
         url: '/courses',
         templateUrl: '../views/courses/courses.html',
-        controller: 'coursesCtrl'
+        controller: 'CoursesCtrl',
+        controllerAs: 'coursesCtrl'
       })
       .state('students', {
         url: '/students',

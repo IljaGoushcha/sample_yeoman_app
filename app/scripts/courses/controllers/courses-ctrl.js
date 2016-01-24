@@ -2,166 +2,169 @@
 	'use strict'
 
 	angular.module('coursesModule')
-		.controller('coursesCtrl', ['$scope', 'coursesDataService', '$document', 'hotkeys', function($scope, coursesDataService, $document, hotkeys) {
+		.controller('CoursesCtrl', ['coursesDataService', '$document', 'hotkeys', function(coursesDataService, $document, hotkeys) {
 			// use ng-change
 
 
 
 			// implement save first then deselect, maybe remove unedited, then save, then deselect, maybe implement model
 			// move ng-inits into scope, rething stopPropagation
+			var vm = this;
 
 
+			vm.columnName = 'name';
+			vm.reverse = false;
 
-			$scope.columnName = 'name';
-			$scope.reverse = false;
-
-			hotkeys.bindTo($scope)
+			hotkeys
 				.add({
-					combo: 'esc',
-					description: 'test',
+					combo: 'ctrl+a',
+					description: 'print allCourses',
 					callback: function() {
-						console.log("esc pressed");
+						console.log(vm.allCourses);
 					}
 				});
 
-			$scope.deselectAllRowsB = function(myCourse) {
+			vm.deselectAllRowsB = function(myCourse) {
 				console.log("inside deselectAllRowsB()");
 
-				$scope.allCourses.map(function(course) {
+				vm.allCourses.map(function(course) {
 					if (course.id == myCourse.id) {
 					} else {
 						if (course.isDirty == true && course.id) {
-							$scope.updateCourse(course);
+							vm.updateCourse(course);
 						} else if (course.isDirty && !course.hasOwnProperty('id')) {
-							$scope.saveCourse(course);
+							vm.saveCourse(course);
 						}
 						course.isSelected = false;
 					}
 				});
 			};
 
-			$scope.removeNewUneditedRow = function() {
-				_.remove($scope.allCourses, function(course) {
+			vm.removeNewUneditedRow = function() {
+				_.remove(vm.allCourses, function(course) {
     				return (course.name == null || course.number == null || course.section == null);
 				});
 			};
 
-			$scope.updateCourse = function(myCourse) {
+			vm.updateCourse = function(myCourse) {
 				coursesDataService.updateCourse(myCourse).then(function(response) {
 						console.log(response);
-						$scope.onLoad();
+						vm.onLoad();
 					}, function(error) {
 						console.log("something went wrong when updating a course");
 					});
 			};
 
-			$scope.addNewCourseRow = function(event) {
+			vm.addNewCourseRow = function(event) {
 				event.stopPropagation();
 				
-				$scope.deselectAllRowsB();
+				vm.deselectAllRowsB();
 
-				$scope.allCourses.push({
+				vm.allCourses.push({
 					"name": null,
 					"number": null,
 					"section": null,
 					"isSelected": true
 				});
-				$scope.columnName = null;
-				$scope.reverse = false;
+				vm.columnName = null;
+				vm.reverse = false;
 			};
 
-			$scope.saveCourse = function(myCourse) {
+			vm.saveCourse = function(myCourse) {
 				coursesDataService.saveNewCourse(myCourse).then(function(response) {
 						console.log(response);
-						$scope.onLoad();
+						vm.onLoad();
 					}, function(error) {
 					});
 			};
 
-			$scope.editCourseAction = function(myCourse, event) {
+			vm.editCourseAction = function(myCourse, event) {
 				console.log("inside editCourseAction()");
 				event.stopPropagation();
 				myCourse.isSelected = true;
-				$scope.unsavedCourseExists = true;
+				vm.unsavedCourseExists = true;
 			};
 
 			
 
-			$scope.deleteCourseAction = function(myCourse, event) {
+			vm.deleteCourseAction = function(myCourse, event) {
 				console.log("inside deleteCourseAction()");
 				event.stopPropagation();
 				if (myCourse.hasOwnProperty('id')) {
 					coursesDataService.deleteCourse(myCourse).then(function(response) {
 						console.log(response);
-						$scope.onLoad();
+						vm.onLoad();
 					}, function(error) {
 
 					});
 				} else {
-					$scope.stopAddingNewCourseAction();
+					vm.stopAddingNewCourseAction();
 				}	
 			};
 
-			$scope.stopAddingNewCourseAction = function() {
+			vm.stopAddingNewCourseAction = function() {
 				console.log("inside astoAddingNewCourseAction()");
-				$scope.allCourses.pop();
-				$scope.unsavedCourseExists = false;
+				vm.allCourses.pop();
+				vm.unsavedCourseExists = false;
 			};
 
-			$scope.selectRow = function(myCourse, event) {
+			vm.selectRow = function(myCourse, event) {
 				event.stopPropagation();
 
 				if (myCourse.isSelected == true) {
 					console.log("row already selected");
 				} else {
-					$scope.deselectAllRows();
+					vm.deselectAllRows();
 
 					myCourse.isSelected = true;
-					$scope.unsavedCourseExists = true;
+					vm.unsavedCourseExists = true;
 				}
 			};
 
-			$scope.deselectAllRows = function(course) {
+			vm.deselectAllRows = function(course) {
 				console.log("inside deselectAllRows()");
-				_.remove($scope.allCourses, function(course) {
+				_.remove(vm.allCourses, function(course) {
     				return (course.name == null || course.number == null || course.section == null);
 				});
 
-				$scope.allCourses.map(function(course) {
+				vm.allCourses.map(function(course) {
 					if (course.isSelected && course.hasOwnProperty('id')) {
-						$scope.updateCourseAction(course);
+						vm.updateCourseAction(course);
 					} else if (course.isSelected && !course.hasOwnProperty('id')) {
-						$scope.saveCourseAction(course);
+						vm.saveCourseAction(course);
 					}
 
 					
 					course.isSelected = false;
 				});
 
-				$scope.unsavedCourseExists = false;
+				vm.unsavedCourseExists = false;
 			};
 
 			$document.bind('click', function(){
 				console.log("inside document.on click");
-        		$scope.deselectAllRowsB({"id":null});
+        		vm.deselectAllRowsB({"id":null});
     		});
 
-			$scope.printJson = function(event) {
-				event.stopPropagation();
-				console.log($scope.allCourses);
-			};
-
-			$scope.onLoad = function() {
+			vm.onLoad = function() {
 				console.log("inside onLoad()");
 				coursesDataService.fetchAllCourses().then(function(response) {
-					$scope.allCourses = response;
-					$scope.unsavedCourseExists = false;
+					vm.allCourses = vm.enrichAllCourses(response);
+					vm.unsavedCourseExists = false;
 				}, function(error) {
 					console.log("error loading courses");
 				});
 			};
 
-			$scope.onLoad();
+			vm.enrichAllCourses = function(allCourses) {
+				return allCourses.map(function(course) {
+					course.isDirty = false;
+					course.isSelected = false;
+					return course;
+				});
+			};
+
+			vm.onLoad();
 
 		}]);
 }());
