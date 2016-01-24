@@ -24,27 +24,27 @@
 					}
 				});
 
-			vm.deselectAllRowsB = function(myCourse) {
-				console.log("inside deselectAllRowsB()");
+			// vm.deselectAllRowsB = function(myCourse) {
+			// 	console.log("inside deselectAllRowsB()");
 
-				vm.allCourses.map(function(course) {
-					if (course.id == myCourse.id) {
-					} else {
-						if (course.isDirty == true && course.id) {
-							vm.updateCourse(course);
-						} else if (course.isDirty && !course.hasOwnProperty('id')) {
-							vm.saveCourse(course);
-						}
-						course.isSelected = false;
-					}
-				});
-			};
+			// 	vm.allCourses.map(function(course) {
+			// 		if (course.id == myCourse.id) {
+			// 		} else {
+			// 			if (course.isDirty == true && course.id) {
+			// 				vm.updateCourse(course);
+			// 			} else if (course.isDirty && !course.hasOwnProperty('id')) {
+			// 				vm.saveCourse(course);
+			// 			}
+			// 			course.isSelected = false;
+			// 		}
+			// 	});
+			// };
 
-			vm.removeNewUneditedRow = function() {
-				_.remove(vm.allCourses, function(course) {
-    				return (course.name == null || course.number == null || course.section == null);
-				});
-			};
+			// vm.removeNewUneditedRow = function() {
+			// 	_.remove(vm.allCourses, function(course) {
+   //  				return (course.name == null || course.number == null || course.section == null);
+			// 	});
+			// };
 
 			vm.updateCourse = function(myCourse) {
 				coursesDataService.updateCourse(myCourse).then(function(response) {
@@ -55,22 +55,22 @@
 					});
 			};
 
-			vm.addNewCourseRow = function(event) {
-				event.stopPropagation();
+			// vm.addNewCourseRow = function(event) {
+			// 	event.stopPropagation();
 				
-				vm.deselectAllRowsB();
+			// 	vm.deselectAllRowsB();
 
-				vm.allCourses.push({
-					"name": null,
-					"number": null,
-					"section": null,
-					"isSelected": true
-				});
-				vm.columnName = null;
-				vm.reverse = false;
-			};
+			// 	vm.allCourses.push({
+			// 		"name": null,
+			// 		"number": null,
+			// 		"section": null,
+			// 		"isSelected": true
+			// 	});
+			// 	vm.columnName = null;
+			// 	vm.reverse = false;
+			// };
 
-			vm.saveCourse = function(myCourse) {
+			vm.createCourse = function(myCourse) {
 				coursesDataService.saveNewCourse(myCourse).then(function(response) {
 						console.log(response);
 						vm.onLoad();
@@ -78,79 +78,71 @@
 					});
 			};
 
-			vm.editCourseAction = function(myCourse, event) {
-				console.log("inside editCourseAction()");
-				event.stopPropagation();
-				myCourse.isSelected = true;
-				vm.unsavedCourseExists = true;
-			};
+			// vm.editCourseAction = function(myCourse, event) {
+			// 	console.log("inside editCourseAction()");
+			// 	event.stopPropagation();
+			// 	myCourse.isSelected = true;
+			// 	vm.unsavedCourseExists = true;
+			// };
 
-			
+			// vm.deleteCourseAction = function(myCourse, event) {
+			// 	console.log("inside deleteCourseAction()");
+			// 	event.stopPropagation();
+			// 	if (myCourse.hasOwnProperty('id')) {
+			// 		coursesDataService.deleteCourse(myCourse).then(function(response) {
+			// 			console.log(response);
+			// 			vm.onLoad();
+			// 		}, function(error) {
 
-			vm.deleteCourseAction = function(myCourse, event) {
-				console.log("inside deleteCourseAction()");
-				event.stopPropagation();
-				if (myCourse.hasOwnProperty('id')) {
-					coursesDataService.deleteCourse(myCourse).then(function(response) {
-						console.log(response);
-						vm.onLoad();
-					}, function(error) {
+			// 		});
+			// 	} else {
+			// 		vm.stopAddingNewCourseAction();
+			// 	}	
+			// };
 
-					});
-				} else {
-					vm.stopAddingNewCourseAction();
-				}	
-			};
+			// vm.stopAddingNewCourseAction = function() {
+			// 	console.log("inside astoAddingNewCourseAction()");
+			// 	vm.allCourses.pop();
+			// 	vm.unsavedCourseExists = false;
+			// };
 
-			vm.stopAddingNewCourseAction = function() {
-				console.log("inside astoAddingNewCourseAction()");
-				vm.allCourses.pop();
-				vm.unsavedCourseExists = false;
-			};
-
-			vm.selectRow = function(myCourse, event) {
+			vm.selectCourse = function(myCourse, event) {
 				event.stopPropagation();
 
 				if (myCourse.isSelected == true) {
 					console.log("row already selected");
 				} else {
 					vm.deselectAllRows();
-
 					myCourse.isSelected = true;
-					vm.unsavedCourseExists = true;
 				}
 			};
 
-			vm.deselectAllRows = function(course) {
+			vm.deselectAllRows = function() {
 				console.log("inside deselectAllRows()");
 				_.remove(vm.allCourses, function(course) {
     				return (course.name == null || course.number == null || course.section == null);
 				});
 
 				vm.allCourses.map(function(course) {
-					if (course.isSelected && course.hasOwnProperty('id')) {
-						vm.updateCourseAction(course);
-					} else if (course.isSelected && !course.hasOwnProperty('id')) {
-						vm.saveCourseAction(course);
+					if (course.isSelected && course.hasOwnProperty('id') && course.isDirty) {
+						vm.updateCourse(course);
+					} else if (course.isSelected && !course.hasOwnProperty('id') && course.isDirty) {
+						vm.createCourse(course);
 					}
-
-					
 					course.isSelected = false;
 				});
-
-				vm.unsavedCourseExists = false;
+				console.log(vm.allCourses);
 			};
 
-			$document.bind('click', function(){
-				console.log("inside document.on click");
-        		vm.deselectAllRowsB({"id":null});
+			$document.bind('mousedown', function(){
+				console.log("inside document.on mousedown");
+        		vm.deselectAllRows();
     		});
 
 			vm.onLoad = function() {
 				console.log("inside onLoad()");
 				coursesDataService.fetchAllCourses().then(function(response) {
 					vm.allCourses = vm.enrichAllCourses(response);
-					vm.unsavedCourseExists = false;
 				}, function(error) {
 					console.log("error loading courses");
 				});
