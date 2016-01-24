@@ -4,6 +4,14 @@
 	angular.module('coursesModule')
 		.controller('coursesCtrl', ['$scope', 'coursesDataService', '$document', 'hotkeys', function($scope, coursesDataService, $document, hotkeys) {
 			// use ng-change
+
+
+
+			// implement save first then deselect, maybe remove unedited, then save, then deselect, maybe implement model
+			// move ng-inits into scope, rething stopPropagation
+
+
+
 			$scope.columnName = 'name';
 			$scope.reverse = false;
 
@@ -17,46 +25,57 @@
 				});
 
 			$scope.deselectAllRowsB = function(myCourse) {
+				console.log("inside deselectAllRowsB()");
+
 				$scope.allCourses.map(function(course) {
 					if (course.id == myCourse.id) {
 					} else {
+						if (course.isDirty == true && course.id) {
+							$scope.updateCourse(course);
+						} else if (course.isDirty && !course.hasOwnProperty('id')) {
+							$scope.saveCourse(course);
+						}
 						course.isSelected = false;
 					}
 				});
 			};
 
+			$scope.removeNewUneditedRow = function() {
+				_.remove($scope.allCourses, function(course) {
+    				return (course.name == null || course.number == null || course.section == null);
+				});
+			};
 
+			$scope.updateCourse = function(myCourse) {
+				coursesDataService.updateCourse(myCourse).then(function(response) {
+						console.log(response);
+						$scope.onLoad();
+					}, function(error) {
+						console.log("something went wrong when updating a course");
+					});
+			};
 
-			$scope.addNewCourseAction = function(event) {
-				console.log("inside addNewCourseAction()");
+			$scope.addNewCourseRow = function(event) {
 				event.stopPropagation();
-				$scope.rowName = null;
-				$scope.reverse = false;
+				
+				$scope.deselectAllRowsB();
+
 				$scope.allCourses.push({
 					"name": null,
 					"number": null,
 					"section": null,
-					"isSelected": "true"
+					"isSelected": true
 				});
-				$scope.unsavedCourseExists = true;
+				$scope.columnName = null;
+				$scope.reverse = false;
 			};
 
-			$scope.saveCourseAction = function(myCourse, event) {
-				console.log("inside saveNewCourseAction()");
-				if (event) {
-					event.stopPropagation();
-				}
-				
-				if (myCourse.hasOwnProperty('id')) {
-					$scope.updateCourseAction(myCourse);
-				} else {
-					coursesDataService.saveNewCourse(myCourse).then(function(response) {
+			$scope.saveCourse = function(myCourse) {
+				coursesDataService.saveNewCourse(myCourse).then(function(response) {
 						console.log(response);
 						$scope.onLoad();
 					}, function(error) {
-
 					});
-				}
 			};
 
 			$scope.editCourseAction = function(myCourse, event) {
@@ -66,15 +85,7 @@
 				$scope.unsavedCourseExists = true;
 			};
 
-			$scope.updateCourseAction = function(myCourse) {
-				console.log("inside updateCourseAction()");
-				coursesDataService.updateCourse(myCourse).then(function(response) {
-						console.log(response);
-						$scope.onLoad();
-					}, function(error) {
-
-					});
-			};
+			
 
 			$scope.deleteCourseAction = function(myCourse, event) {
 				console.log("inside deleteCourseAction()");
@@ -130,10 +141,15 @@
 				$scope.unsavedCourseExists = false;
 			};
 
-			$(document).bind('click', function(){
+			$document.bind('click', function(){
 				console.log("inside document.on click");
-        		$scope.deselectAllRows();
+        		$scope.deselectAllRowsB({"id":null});
     		});
+
+			$scope.printJson = function(event) {
+				event.stopPropagation();
+				console.log($scope.allCourses);
+			};
 
 			$scope.onLoad = function() {
 				console.log("inside onLoad()");

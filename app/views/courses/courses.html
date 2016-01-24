@@ -6,33 +6,30 @@
 
   <div class="container table-container">
     <table class="table-striped">
-      <tr>
+      <tr ng-click="$event.stopPropagation()">
         <th></th>
-        <th><span ng-click="rowName='name'; reverse=!reverse">Name</span></th>
-        <th><span ng-click="rowName='number'; reverse=!reverse">Number</span></th> 
-        <th><span ng-click="rowName='section'; reverse=!reverse">Section</span></th>
-        <th>Action</th>
+        <th><span ng-click="columnName='name'; reverse=!reverse">Name</span></th>
+        <th><span ng-click="columnName='number'; reverse=!reverse">Number</span></th> 
+        <th><span ng-click="columnName='section'; reverse=!reverse">Section</span></th>
+        <th></th>
       </tr>
-      <tr ng-style="course.isSelected && {'background-color': '#D9D9D9'}" ng-repeat="course in allCourses | orderBy:columnName:reverse" ng-init="course.isSelected = false" ng-mousedown="$event.stoPropagation();deselectAllRows(course);course.isSelected = true">
+      <tr ng-style="course.isSelected && {'background-color': '#D9D9D9'}" ng-repeat="course in allCourses | orderBy:columnName:reverse" ng-init="course.isDirty=false" ng-click="$event.stopPropagation()" ng-mousedown="$event.stopPropagation();deselectAllRowsB(course);course.isSelected = true">
         <td></td>
         <td ng-style="course.isSelected && {'text-align': 'center'}">
           <span ng-show="!course.isSelected">{{course.name}}</span>
-          <input ng-show="course.isSelected" type="text" placeholder="add name" ng-model="course.name" ng-click="$event.stopPropagation()">
+          <input ng-show="course.isSelected" type="text" placeholder="add name" ng-model="course.name" ng-mousedown="$event.stopPropagation()" ng-click="$event.stopPropagation()" ng-change="course.isDirty = true">
         </td>
         <td>
           <span ng-show="!course.isSelected">{{course.number}}</span>
-          <input ng-show="course.isSelected" type="text" placeholder="add number" ng-init="" ng-model="course.number" ng-click="$event.stopPropagation()">
+          <input ng-show="course.isSelected" type="text" placeholder="add number" ng-init="" ng-model="course.number" ng-mousedown="$event.stopPropagation()" ng-click="$event.stopPropagation()" ng-change="course.isDirty = true">
         </td> 
         <td>
           <span ng-show="!course.isSelected">{{course.section}}</span>
-          <input ng-show="course.isSelected" type="text" placeholder="add section" ng-init="" ng-model="course.section" ng-click="$event.stopPropagation()">
+          <input ng-show="course.isSelected" type="text" placeholder="add section" ng-init="" ng-model="course.section" ng-mousedown="$event.stopPropagation()" ng-click="$event.stopPropagation()" ng-change="course.isDirty = true">
         </td>
         <td>
           <span ng-show="!course.isSelected">
-            <i class="fa fa-pencil" ng-class="{'disabled': unsavedCourseExists}" ng-click="editCourseAction(course, $event)"></i>&nbsp;<i class="fa fa-trash" ng-class="{'disabled': unsavedCourseExists}" ng-click="deleteCourseAction(course, $event)"></i>
-          </span>
-          <span ng-show="course.isSelected">
-            <i class="fa fa-floppy-o" ng-class="{'disabled': course.name == null || course.number == null || course.section == null}" ng-click="saveCourseAction(course, $event)"></i>&nbsp;<i class="fa fa-trash" ng-click="deleteCourseAction(course, $event)"></i>
+            <i class="fa fa-trash" ng-click="deleteCourseAction(course, $event)"></i>
           </span>
         </td>
       </tr>
@@ -42,9 +39,11 @@
   <div class="container buttons-container">
     <table>
       <tr>
-        <td></td>
         <td>
-          <span ng-class="{'disabled': unsavedCourseExists}" ng-click="addNewCourseAction($event)"><i class="fa fa-plus-circle"></i>&nbsp;Add</span>
+          <button ng-click="printJson($event)"></button>
+        </td>
+        <td>
+          <span ng-class="{'disabled': unsavedCourseExists}" ng-mousedown="$event.stopPropagation()" ng-click="addNewCourseRow($event)"><i class="fa fa-plus-circle"></i>&nbsp;Add</span>
         </td>
       </tr>
     </table>
