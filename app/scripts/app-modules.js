@@ -2,7 +2,8 @@
 
 angular
   .module('appModules', [
-      'coursesModule'
+      'coursesModule',
+      'studentsModule'
     ])
   .config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/courses');
@@ -16,6 +17,8 @@ angular
       })
       .state('students', {
         url: '/students',
-        templateUrl: '../views/students/students.html'
+        templateUrl: '../views/students/students.html',
+        controller: 'StudentsCtrl',
+        controllerAs: 'studentsCtrl'
       });
   });

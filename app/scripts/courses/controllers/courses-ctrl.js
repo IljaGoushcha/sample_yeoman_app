@@ -1,7 +1,8 @@
 (function() {
-	'use strict'
+	'use strict';
 
-	angular.module('coursesModule')
+	angular
+		.module('coursesModule')
 		.controller('CoursesCtrl', ['$scope', 'coursesDataService', '$document', 'hotkeys', function($scope, coursesDataService, $document, hotkeys) {
 			
 			var vm = this;
