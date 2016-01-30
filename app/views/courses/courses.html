@@ -17,15 +17,15 @@
         <td></td>
         <td>
           <span ng-show="!course.isSelected">{{course.name}}</span>
-          <input ng-show="course.isSelected" type="text" placeholder="add name" ng-model="course.name" ng-mousedown="$event.stopPropagation()" ng-click="$event.stopPropagation()" ng-change="course.isDirty = true">
+          <input ng-show="course.isSelected" type="text" placeholder="add name" ng-model="course.name" ng-mousedown="$event.stopPropagation()" ng-click="$event.stopPropagation()" ng-change="course.isDirty = true" ng-keydown="coursesCtrl.checkEnter($event)">
         </td>
         <td>
           <span ng-show="!course.isSelected">{{course.number}}</span>
-          <input ng-show="course.isSelected" type="text" placeholder="add number" ng-model="course.number" ng-mousedown="$event.stopPropagation()" ng-click="$event.stopPropagation()" ng-change="course.isDirty = true">
+          <input ng-show="course.isSelected" type="text" placeholder="add number" ng-model="course.number" ng-mousedown="$event.stopPropagation()" ng-click="$event.stopPropagation()" ng-change="course.isDirty = true" ng-keydown="coursesCtrl.checkEnter($event)">
         </td> 
         <td>
           <span ng-show="!course.isSelected">{{course.section}}</span>
-          <input ng-show="course.isSelected" type="text" placeholder="add section" ng-model="course.section" ng-mousedown="$event.stopPropagation()" ng-click="$event.stopPropagation()" ng-change="course.isDirty = true">
+          <input ng-show="course.isSelected" type="text" placeholder="add section" ng-model="course.section" ng-mousedown="$event.stopPropagation()" ng-click="$event.stopPropagation()" ng-change="course.isDirty = true" ng-keydown="coursesCtrl.checkEnter($event)">
         </td>
         <td>
           <span><i class="fa fa-trash" ng-mousedown="$event.stopPropagation()" ng-click="coursesCtrl.deleteCourse(course, $event)"></i></span>

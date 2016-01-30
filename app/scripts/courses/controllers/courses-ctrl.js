@@ -113,6 +113,13 @@
         		$scope.$apply();
     		});
 
+			vm.checkEnter = function(event) {
+				if (event.keyCode == 13) {
+					console.log("enter key pressed");
+					vm.deselectAllRows();
+				}
+			};
+
 			vm.onLoad = function() {
 				console.log("inside onLoad()");
 				coursesDataService.fetchAllCourses().then(function(response) {
