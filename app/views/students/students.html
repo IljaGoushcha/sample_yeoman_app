@@ -1,34 +1,34 @@
 <div class="students-outer-div">
 
   <div class="container">
-    <h1>Courses</h1>
+    <h1>Students</h1>
   </div>
 
   <div class="container table-container">
     <table class="table-striped">
       <tr ng-mousedown="$event.stopPropagation()">
         <th></th>
-        <th><span ng-click="coursesCtrl.columnName='name'; coursesCtrl.reverse=!coursesCtrl.reverse">Name</span></th>
-        <th><span ng-click="coursesCtrl.columnName='number'; coursesCtrl.reverse=!coursesCtrl.reverse">Number</span></th> 
-        <th><span ng-click="coursesCtrl.columnName='section'; coursesCtrl.reverse=!coursesCtrl.reverse">Section</span></th>
+        <th><span ng-click="studentsCtrl.columnName='name'; studentsCtrl.reverse=!studentsCtrl.reverse">Name</span></th>
+        <th><span ng-click="studentsCtrl.columnName='number'; studentsCtrl.reverse=!studentsCtrl.reverse">Number</span></th> 
+        <th><span ng-click="studentsCtrl.columnName='section'; studentsCtrl.reverse=!studentsCtrl.reverse">Section</span></th>
         <th></th>
       </tr>
-      <tr ng-style="course.isSelected && {'background-color': '#D9D9D9'}" ng-repeat="course in coursesCtrl.allCourses | orderBy:coursesCtrl.columnName:coursesCtrl.reverse" ng-mousedown="coursesCtrl.selectCourse(course, $event)">
+      <tr ng-style="student.isSelected && {'background-color': '#D9D9D9'}" ng-repeat="student in studentsCtrl.allStudents | orderBy:studentsCtrl.columnName:studentsCtrl.reverse" ng-mousedown="studentsCtrl.selectStudent(student, $event)">
         <td></td>
         <td>
-          <span ng-show="!course.isSelected">{{course.name}}</span>
-          <input ng-show="course.isSelected" type="text" placeholder="add name" ng-model="course.name" ng-mousedown="$event.stopPropagation()" ng-click="$event.stopPropagation()" ng-change="course.isDirty = true">
+          <span ng-show="!student.isSelected">{{student.name}}</span>
+          <input ng-show="student.isSelected" type="text" placeholder="add name" ng-model="student.name" ng-mousedown="$event.stopPropagation()" ng-click="$event.stopPropagation()" ng-change="student.isDirty = true">
         </td>
         <td>
-          <span ng-show="!course.isSelected">{{course.number}}</span>
-          <input ng-show="course.isSelected" type="text" placeholder="add number" ng-model="course.number" ng-mousedown="$event.stopPropagation()" ng-click="$event.stopPropagation()" ng-change="course.isDirty = true">
+          <span ng-show="!student.isSelected">{{student.number}}</span>
+          <input ng-show="student.isSelected" type="text" placeholder="add number" ng-model="student.number" ng-mousedown="$event.stopPropagation()" ng-click="$event.stopPropagation()" ng-change="student.isDirty = true">
         </td> 
         <td>
-          <span ng-show="!course.isSelected">{{course.section}}</span>
-          <input ng-show="course.isSelected" type="text" placeholder="add section" ng-model="course.section" ng-mousedown="$event.stopPropagation()" ng-click="$event.stopPropagation()" ng-change="course.isDirty = true">
+          <span ng-show="!student.isSelected">{{student.section}}</span>
+          <input ng-show="student.isSelected" type="text" placeholder="add section" ng-model="student.section" ng-mousedown="$event.stopPropagation()" ng-click="$event.stopPropagation()" ng-change="student.isDirty = true">
         </td>
         <td>
-          <span><i class="fa fa-trash" ng-mousedown="$event.stopPropagation()" ng-click="coursesCtrl.deleteCourse(course, $event)"></i></span>
+          <span><i class="fa fa-trash" ng-mousedown="$event.stopPropagation()" ng-click="studentsCtrl.deleteStudent(student, $event)"></i></span>
         </td>
       </tr>
     </table>
@@ -39,7 +39,7 @@
       <tr>
         <td></td>
         <td>
-          <span ng-mousedown="$event.stopPropagation()" ng-click="coursesCtrl.addNewCourse($event)"><i class="fa fa-plus-circle"></i>&nbsp;Add</span>
+          <span ng-mousedown="$event.stopPropagation()" ng-click="studentsCtrl.addNewStudent($event)"><i class="fa fa-plus-circle"></i>&nbsp;Add</span>
         </td>
       </tr>
     </table>

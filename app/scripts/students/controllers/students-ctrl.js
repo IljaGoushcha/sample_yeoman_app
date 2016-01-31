@@ -3,7 +3,7 @@
 
 	angular
 		.module('studentsModule')
-		.controller('StudentsCtrl', ['$scope', function($scope) {
+		.controller('StudentsCtrl', ['$scope', 'studentsDataServices', function($scope, studentsDataServices) {
 
 			var vm = this;
 
@@ -122,18 +122,18 @@
 
 			vm.onLoad = function() {
 				console.log("inside onLoad()");
-				coursesDataService.fetchAllCourses().then(function(response) {
-					vm.allCourses = vm.enrichAllCourses(response);
+				studentsDataService.fetchAllStudents().then(function(response) {
+					vm.allStudents = vm.enrichAllStudents(response);
 				}, function(error) {
-					console.log("error loading courses");
+					console.log("error loading students");
 				});
 			};
 
-			vm.enrichAllCourses = function(allCourses) {
-				return allCourses.map(function(course) {
-					course.isDirty = false;
-					course.isSelected = false;
-					return course;
+			vm.enrichAllStudents = function(allStudents) {
+				return allStudents.map(function(student) {
+					student.isDirty = false;
+					student.isSelected = false;
+					return student;
 				});
 			};
 

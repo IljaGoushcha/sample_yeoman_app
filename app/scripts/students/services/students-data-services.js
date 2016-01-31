@@ -3,38 +3,38 @@
 angular.module('studentsModule')
 	.factory('studentsDataService', ['Restangular', '$http', function(Restangular, $http) {
 
-		var fetchAllCourses = function() {
+		var fetchAllStudents = function() {
 			Restangular.setBaseUrl('http://localhost:3000');
 			return Restangular.one('students').get();
 		};
 
-		var saveNewCourse = function(newCourse) {
+		var saveNewStudent = function(newStudent) {
 			var myPayload = {
-				"course": newCourse
+				"course": newStudent
 			};
 			console.log(myPayload);
 			Restangular.setBaseUrl('http://localhost:3000');
 			return Restangular.one('courses').post('', myPayload);
 		};
 
-		var updateCourse = function(myCourse) {
+		var updateStudent = function(myStudent) {
 			var myPayload = {
-				"course": myCourse
+				"student": myStudent
 			};
 			console.log(myPayload);
 			Restangular.setBaseUrl('http://localhost:3000');
-			return Restangular.one('courses', myCourse.id).customPUT(myPayload);
+			return Restangular.one('student', myStudent.id).customPUT(myPayload);
 		};
 
-		var deleteCourse = function(myCourse) {
+		var deleteStudent = function(myStudent) {
 			Restangular.setBaseUrl('http://localhost:3000');
-			return Restangular.one('courses', myCourse.id).remove();
+			return Restangular.one('students', myStudent.id).remove();
 		};
 
 		return {
-			fetchAllCourses: fetchAllCourses,
-			saveNewCourse: saveNewCourse,
-			updateCourse: updateCourse,
-			deleteCourse: deleteCourse
+			fetchAllStudents: fetchAllStudents,
+			saveNewStudent: saveNewStudent,
+			updateStudent: updateStudent,
+			deleteStudent: deleteStudent
 		};
 	}]);
